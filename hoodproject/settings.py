@@ -27,16 +27,26 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+cloudinary.config( 
+    cloud_name = "dzjhja6ei", 
+    api_key = "479598353291365", 
+    api_secret = "Uu0WxMxAk5EAGxa0IUDtHooxXGo" 
+)
 # Application definition
 
 INSTALLED_APPS = [
+    'hoodapp.apps.HoodappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
