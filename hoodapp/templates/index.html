@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+{% endblock %}
+
+{% block content %} 
+{% include 'navbar.html' %}
+
+
+{% for hood in neighborhood %}
+<div class="container-fluid">
+<div class="row">
+<div class="">
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/images/hood2.jpeg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Massionate</h5>
+        <h5 class="card-title">Karen</h5>
+        <p class="card-text">description:{{hood.description}}Home is where my habits have a habitat.</p>
+        <a href="{% url 'join' hood.id %}" class="btn btn-primary">Join Hood</a>
+        <a href="{% url 'leave' hood.id %}" class="btn btn-primary">Leave Hood</a>
+    </div>
+</div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/images/hood1.jpg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Massionate</h5>
+        <h5 class="card-title">Karen</h5>
+        <p class="card-text">description:{{hood.description}}Home is where my habits have a habitat.</p>
+        <a href="#" class="btn btn-primary">Add Hood</a>
+        <a href="#" class="btn btn-primary">Leave Hood</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/images/hood3.jpg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Massionate</h5>
+        <h5 class="card-title">Karen</h5>
+        <p class="card-text">description:{{hood.description}}Home is where my habits have a habitat.</p>
+        <a href="#" class="btn btn-primary">Add Hood</a>
+        <a href="#" class="btn btn-primary">Leave Hood</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/images/house4.jpeg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Massionate</h5>
+        <h5 class="card-title">Karen</h5>
+        <p class="card-text">description:{{hood.description}}Home is where my habits have a habitat.</p>
+        <a href="#" class="btn btn-primary">Add Hood</a>
+        <a href="#" class="btn btn-primary">Leave Hood</a>
+    </div>
+</div>
+
+</div>
+</div>
+{% endfor %}
+{% endblock %}
