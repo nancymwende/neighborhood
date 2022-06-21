@@ -1,5 +1,4 @@
 from dataclasses import fields
-from xml.dom.expatbuilder import FragmentBuilderNS
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -32,8 +31,34 @@ class LoginForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class'] = 'form-control'    
         
         
-class ProfileForm(ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
+        exclude = ('user' ,)
+        
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']        
+        
+        
+        
+class HoodForm(forms.ModelForm):
+    class Meta:
+        model = NeighborHood
+        fields = ['photo','name','content','location', 'health_cell','police_hotline'] 
         exclude = ['user']
         
+        
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields=['title','content',]
+        exclude = ['user']
+        
+        
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
+        fields=['business_name','email','description','neighborhood']
+        exclude = ['user']

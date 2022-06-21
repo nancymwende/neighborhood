@@ -13,7 +13,7 @@ class NeighborHood(models.Model):
     name = models.CharField(max_length=50)
     photo = CloudinaryField("image",null=True)
     content = models.TextField(max_length=600, null=True)
-    # location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
+    location = models.CharField(max_length=200,null=True)
     occupants_count = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     created_on = models.DateTimeField(auto_now_add=True,null=True)
@@ -47,8 +47,8 @@ class Profile(models.Model):
     profile_photo = CloudinaryField('images')
     contact = models.CharField(max_length=100)
     created_on = models.DateTimeField(auto_now_add=True)
-    # location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
-    
+    location = models.CharField(max_length=200,null=True)
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE,null=True)
     
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -69,7 +69,7 @@ class Post(models.Model):
     profile_photo = CloudinaryField("image",blank=True,null=True)
     created_on = models.DateTimeField(auto_now_add=True,null=True)
     updated_on = models.DateTimeField(auto_now=True,null=True)
-    
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE,null=True)
     class Meta:
         ordering = ['-pk']
         
@@ -87,4 +87,26 @@ class Post(models.Model):
         self.update()
     
     
+class Business(models.Model):
+    business_name = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100)
+    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE,null=True)
     
+    def create_business(self):
+        self.save()
+        
+    def delete_business(self):
+        self.delete()
+        
+    def update_business(self):
+        self.update()    
+        
+    def find_business(cls, business_id):
+        return cls.objects.filter(id=business_id)
+    
+    @classmethod
+    def search_by_business_name(cls, search_term):
+        business = cls.objects.filter(name__icontains=search_term)
+        return business
