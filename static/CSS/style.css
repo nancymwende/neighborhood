@@ -1,0 +1,7 @@
+.image{
+        background-image: url("static/images/hood1.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 40vh;
+
+}
