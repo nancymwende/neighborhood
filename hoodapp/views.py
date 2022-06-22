@@ -83,15 +83,23 @@ def leave_hood(request, hood_id):
     request.user.profile.save()
     return redirect('index')    
     
-def post(request):
-    form = PostForm()
-    
+def post(request,hood_id):
+    neighborhood = NeighborHood.objects.get(id=hood_id)
     if request.method == 'POST':
-        form =  PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('login')
-    return render(request,'post.html',{'form':form})    
+            post = form.save(commit=False)
+            post.neighborhood = neighborhood
+            post.user = request.user
+            post.save()
+            return redirect('index')
+    else:
+        form = PostForm()
+        current_user = request.user
+        neighborhood = NeighborHood.objects.get(id=hood_id)
+        users = Profile.objects.filter(neighborhood=neighborhood)
+        post = Post.objects.filter(neighborhood=neighborhood)
+    return render(request, 'post.html', {'form':form, 'form': form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'post':post})
     
     
 def create_business(request):

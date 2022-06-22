@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data" class="w-50 ">
+    {%csrf_token%}
+    {% bootstrap_form form%}
 
-<div class="d-flex align-items-center justify-content-center">
-    {% if user.profile.profile_photo %}
-    <img src="{{user.profile.profile_photo.url}}" class="rounded-circle" alt="" style="width: 170px; height: 170px; ">
-    <h5>{{user.user}}</h5>
-    <h5>{{user.title}}</h5>
-    <h5>{{user.content}}</h5>
-    {% else %}
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiVi4UkqBVW825DUWUCaPZPmq4X6CXcESrMKBklpBw&s" alt=""
-        style="width: 100px; height: 100px; border-radius: 50%;">
-    <h5 class="me-5">{{user.username}}</h5>
-    {% endif %}
-    
+    <input type="submit" class="btn btn-outline-info " value="Add Post">
+</form>
+{% for post in post %}
+<p>{{post.title}}</p>
+<p>{{post.content}}</p>
+<img src="{{post.profile_photo.url}}"height='100px' alt="" srcset="">
+{%endfor %}
+{% endblock %}    

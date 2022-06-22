@@ -46,15 +46,13 @@ class UpdateForm(forms.ModelForm):
 class HoodForm(forms.ModelForm):
     class Meta:
         model = NeighborHood
-        fields = ['photo','name','content','location', 'health_cell','police_hotline'] 
-        exclude = ['user']
+        exclude = ('user', )
         
         
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields=['title','content',]
-        exclude = ['user']
+        exclude = ('user', )
         
         
 class BusinessForm(forms.ModelForm):

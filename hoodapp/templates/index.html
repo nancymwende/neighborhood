@@ -6,56 +6,30 @@
 
 {% block content %} 
 {% include 'navbar.html' %}
-
-
-{% for hood in neighborhood %}
 <div class="container-fluid">
 <div class="row">
-<div class="">
+{% for hood in neighborhood %}
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="static/images/hood2.jpeg" alt="Card image cap">
+    <img class="card-img-top" src="{{hood.photo.url}}" alt="Card image cap">
     <div class="card-body">
-        <h5 class="card-title">AirBnb</h5>
-        <h5 class="card-title">Nairobi</h5>
-        <p class="card-text">description:{{hood.description}}Home is where my habits have a habitat.</p>
-        <a href="{% url 'join' hood.id %}" class="btn btn-primary">Join Hood</a>
-        <a href="{% url 'leave' hood.id %}" class="btn btn-primary">Leave Hood</a>
-    </div>
-</div>
-</div>
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="static/images/hood1.jpg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Massionate</h5>
-        <h5 class="card-title">Mombasa</h5>
-        <p class="card-text">description:{{hood.description}}Peace over everything with amazing view.</p>
-        <a href="#" class="btn btn-primary">Add Hood</a>
-        <a href="#" class="btn btn-primary">Leave Hood</a>
-    </div>
-</div>
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="static/images/hood3.jpg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Massionate</h5>
-        <h5 class="card-title">Karen</h5>
-        <p class="card-text">description:{{hood.description}}“Home wasn't built in a day.Home is the nicest word there
-            is..</p>
-        <a href="#" class="btn btn-primary">Add Hood</a>
-        <a href="#" class="btn btn-primary">Leave Hood</a>
-    </div>
-</div>
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="static/images/house4.jpeg" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Massionate</h5>
-        <h5 class="card-title">Machakos</h5>
-        <p class="card-text">description:{{hood.description}}Home isn't a place, it's a feeling</p>
-        <a href="#" class="btn btn-primary">Add Hood</a>
-        <a href="#" class="btn btn-primary">Leave Hood</a>
-    </div>
-</div>
+        <h5 class="card-title">Name:{{hood.name}}</h5>
+        <h5 class="card-title"><b>Location</b>:{{hood.location}}</h5>
+        <p class="card-text">description:{{hood.content}}</p>
+        <p class="card-text">health_cell:{{hood.health_cell}}</p>
+        <p class="card-text">police_hotline:{{hood.police_hotline}}</p>
+        <p class="card-text">occupants_count:{{hood.occupants_count}}</p>
+        
+        <a href="{% url 'post' hood.id %}" target="_blank" class="btn btn-outline-info">Post Hood</a>
+        {% if request.user.profile.neighborhood  %}
 
+        <a href="{% url 'leave' hood.id %}" class="btn btn-outline-info">Leave Hood</a>
+        {% else %}
+        <a href="{% url 'join' hood.id %}" class="btn btn-outline-info">Join Hood</a>
+        {% endif %}
+    </div>
+</div>
 </div>
 </div>
 {% endfor %}
+
 {% endblock %}
