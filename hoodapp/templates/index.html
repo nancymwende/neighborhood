@@ -6,30 +6,32 @@
 
 {% block content %} 
 {% include 'navbar.html' %}
-<div class="container-fluid">
-<div class="row col-xs-12">
-{% for hood in neighborhood %}
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{hood.photo.url}}" alt="Card image cap">
-    <div class="card-body";>
-        <h5 class="card-title">Name:{{hood.name}}</h5>
-        <h5 class="card-title"><b>Location</b>:{{hood.location}}</h5>
-        <p class="card-text">description:{{hood.content}}</p>
-        <p class="card-text">health_cell:{{hood.health_cell}}</p>
-        <p class="card-text">police_hotline:{{hood.police_hotline}}</p>
-        <p class="card-text">occupants_count:{{hood.occupants_count}}</p>
-        
-        <a href="{% url 'post' hood.id %}" target="_blank" class="btn btn-outline-info">Post Hood</a>
-        {% if request.user.profile.neighborhood  %}
 
-        <a href="{% url 'leave' hood.id %}" class="btn btn-outline-info">Leave Hood</a>
-        {% else %}
-        <a href="{% url 'join' hood.id %}" class="btn btn-outline-info">Join Hood</a>
-        {% endif %}
-    </div>
-</div>
-</div>
+<marquee behavior="" direction="right"><b><i>Welcome to our Neighbourhood</b></i></marquee>
+
+<div class="row mt-5" >
+{% for hood in neighborhood %}
+    <div class=" col-md-4">
+        <div class="card" style=" height: 110vh;">
+        <img class="" src="{{hood.photo.url}}" alt="Card image cap">
+        <div class="card-body";>
+            <h5 class="card-title"><i><b>Name</i></b>:{{hood.name}}</h5>
+            <h5 class="card-title"><i><b>Location</i></b>:{{hood.location}}</h5>
+            <h5 class="card-text"><i><b>Description</i></b>:{{hood.content}}</h5>
+            <h5 class="card-text"><i><b>Health_cell</i></b>:{{hood.health_cell}}</h5>
+            <h5 class="card-text"><i><b>police_hotline</i></b>:{{hood.police_hotline}}</h5>
+            <h5 class="card-text"><i><b>occupants_count</i></b>:{{hood.occupants_count}}</h5>
+            
+            <a href="{% url 'post' hood.id %}" target="_blank" class="btn btn-outline-info">Post Hood</a>
+            {% if request.user.profile.neighborhood  %}
+    
+            <a href="{% url 'leave' hood.id %}" class="btn btn-outline-info">Leave Hood</a>
+            {% else %}
+            <a href="{% url 'join' hood.id %}" class="btn btn-outline-info">Join Hood</a>
+            {% endif %}
+        </div>
+            </div>
 </div>
 {% endfor %}
-
+</div>
 {% endblock %}
